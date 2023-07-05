@@ -62,6 +62,12 @@ class _MainPageState extends ConsumerState<MainPage> {
           Expanded(
             child: _buildImage(),
           ),
+          const VerticalDivider(
+            color: Colors.black,
+            thickness: 1,
+            indent: 0,
+            endIndent: 0,
+          ),
           Expanded(
             child: Column(
               children: [
