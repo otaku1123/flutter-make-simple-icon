@@ -2,9 +2,8 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:make_simple_image_app/view/pages/main_page.dart';
+import 'package:make_simple_image_app/presentation/pages/main_page.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
