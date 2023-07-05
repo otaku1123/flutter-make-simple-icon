@@ -71,28 +71,37 @@ class _MainPageState extends ConsumerState<MainPage> {
                     child: Text('Right property'),
                   ),
                 ),
-                Row(
-                  children: [
-                    Text('text'),
-
-                    SizedBox(
-                      width: 400,
-                      child: TextField(
-                        controller: _textController,
-                        onChanged: (text) {
-                          ref
-                              .read(mainPageViewModelProvider.notifier)
-                              .changeText(text);
-                        },
-                      ),
+                _buildPropertyItem(
+                  'text',
+                  SizedBox(
+                    width: 400,
+                    child: TextField(
+                      controller: _textController,
+                      onChanged: (text) {
+                        ref
+                            .read(mainPageViewModelProvider.notifier)
+                            .changeText(text);
+                      },
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildPropertyItem(String title, Widget content) {
+    return Row(
+      children: [
+        Text(title),
+        const SizedBox(
+          width: 200,
+        ),
+        content,
+      ],
     );
   }
 
