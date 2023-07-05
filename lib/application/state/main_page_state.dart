@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class MainPageState {
   String text;
   String font;
-  int fontSize;
+  double fontSize;
   FontWeight fontWeight;
   Color fontColor;
   Color backgroundColor;
-  int letterSpacing;
-  int wordSpacing;
+  double letterSpacing;
+  double wordSpacing;
   // memo: 下線などは定義していない
 
-  Alignment textAlign;
+  TextAlign textAlign;
 
   MainPageState({
     this.text = 'おがわ',
@@ -22,19 +22,19 @@ class MainPageState {
     this.backgroundColor = Colors.greenAccent,
     this.letterSpacing = 0,
     this.wordSpacing = 0,
-    this.textAlign = Alignment.center,
+    this.textAlign = TextAlign.center,
   });
 
   MainPageState copyWith({
     String? text,
     String? font,
-    int? fontSize,
+    double? fontSize,
     FontWeight? fontWeight,
     Color? fontColor,
     Color? backgroundColor,
-    int? letterSpacing,
-    int? wordSpacing,
-    Alignment? textAlign,
+    double? letterSpacing,
+    double? wordSpacing,
+    TextAlign? textAlign,
   }) {
     return MainPageState(
       text: text ?? this.text,

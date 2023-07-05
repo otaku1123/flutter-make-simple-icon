@@ -12,6 +12,9 @@ class MainPage extends ConsumerStatefulWidget {
 
 class _MainPageState extends ConsumerState<MainPage> {
   late TextEditingController _textController;
+  late TextEditingController _fontSizeController;
+  late TextEditingController _letterSpacingController;
+  late TextEditingController _wordSpacingController;
 
   @override
   void initState() {
@@ -20,11 +23,24 @@ class _MainPageState extends ConsumerState<MainPage> {
     _textController = TextEditingController(
       text: ref.read(mainPageViewModelProvider).text,
     );
+    _fontSizeController = TextEditingController(
+      text: ref.read(mainPageViewModelProvider).fontSize.toString(),
+    );
+    _letterSpacingController = TextEditingController(
+      text: ref.read(mainPageViewModelProvider).letterSpacing.toString(),
+    );
+    _wordSpacingController = TextEditingController(
+      text: ref.read(mainPageViewModelProvider).wordSpacing.toString(),
+    );
   }
 
   @override
   void dispose() {
     _textController.dispose();
+    _fontSizeController.dispose();
+    _letterSpacingController.dispose();
+    _wordSpacingController.dispose();
+
     super.dispose();
   }
 
@@ -71,25 +87,60 @@ class _MainPageState extends ConsumerState<MainPage> {
           Expanded(
             child: Column(
               children: [
-                Container(
-                  color: Colors.blue,
-                  child: const Center(
-                    child: Text('Right property'),
+                _buildPropertyItem(
+                  'text',
+                  _buildTextField(
+                    _textController,
+                    (text) {
+                      ref
+                          .read(mainPageViewModelProvider.notifier)
+                          .changeText(text);
+                    },
                   ),
                 ),
                 _buildPropertyItem(
-                  'text',
-                  SizedBox(
-                    width: 400,
-                    child: TextField(
-                      controller: _textController,
-                      onChanged: (text) {
-                        ref
-                            .read(mainPageViewModelProvider.notifier)
-                            .changeText(text);
-                      },
-                    ),
-                  ),
+                  'font',
+                  Text('font'), // ドロップダウンリストがいいかもしれない
+                ),
+                _buildPropertyItem(
+                  'font size',
+                  _buildTextField(_fontSizeController, (text) {
+                    ref
+                        .read(mainPageViewModelProvider.notifier)
+                        .changeFontSize(double.tryParse(text) ?? 0);
+                  }),
+                ),
+                _buildPropertyItem(
+                  'font weight',
+                  Text('font weight'),
+                ),
+                _buildPropertyItem(
+                  'letter spacing',
+                  _buildTextField(_letterSpacingController, (text) {
+                    ref
+                        .read(mainPageViewModelProvider.notifier)
+                        .changeLetterSpacing(double.tryParse(text) ?? 0);
+                  }),
+                ),
+                _buildPropertyItem(
+                  'word spacing',
+                  _buildTextField(_wordSpacingController, (text) {
+                    ref
+                        .read(mainPageViewModelProvider.notifier)
+                        .changeWordSpacing(double.tryParse(text) ?? 0);
+                  }),
+                ),
+                _buildPropertyItem(
+                  'text align',
+                  Text('text align'),
+                ),
+                _buildPropertyItem(
+                  'font color',
+                  Text('font color'),
+                ),
+                _buildPropertyItem(
+                  'background color',
+                  Text('background color'),
                 ),
               ],
             ),
@@ -102,20 +153,44 @@ class _MainPageState extends ConsumerState<MainPage> {
   Widget _buildPropertyItem(String title, Widget content) {
     return Row(
       children: [
-        Text(title),
-        const SizedBox(
-          width: 200,
+        Expanded(
+          flex: 1,
+          child: Text(title),
         ),
-        content,
+        Expanded(
+          flex: 3,
+          child: content,
+        ),
       ],
+    );
+  }
+
+  Widget _buildTextField(TextEditingController controller, Function onChanged) {
+    return SizedBox(
+      width: 400,
+      child: TextField(
+        controller: controller,
+        onChanged: (text) {
+          onChanged(text);
+        },
+      ),
     );
   }
 
   Widget _buildImage() {
     return Container(
+      color: ref.watch(mainPageViewModelProvider).backgroundColor,
       child: Center(
         child: Text(
           ref.watch(mainPageViewModelProvider).text,
+          style: TextStyle(
+            color: ref.watch(mainPageViewModelProvider).fontColor,
+            fontSize: ref.watch(mainPageViewModelProvider).fontSize,
+            fontWeight: ref.watch(mainPageViewModelProvider).fontWeight,
+            letterSpacing: ref.watch(mainPageViewModelProvider).letterSpacing,
+            wordSpacing: ref.watch(mainPageViewModelProvider).wordSpacing,
+          ),
+          textAlign: ref.watch(mainPageViewModelProvider).textAlign,
         ),
       ),
     );
