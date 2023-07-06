@@ -123,7 +123,21 @@ class _MainPageState extends ConsumerState<MainPage> {
                 ),
                 _buildPropertyItem(
                   'font weight',
-                  Text('font weight'),
+                  Switch(
+                    value: ref.watch(mainPageViewModelProvider).fontWeight !=
+                        FontWeight.normal,
+                    onChanged: (value) {
+                      if (!value) {
+                        ref
+                            .read(mainPageViewModelProvider.notifier)
+                            .changeFontWeight(FontWeight.normal);
+                      } else {
+                        ref
+                            .read(mainPageViewModelProvider.notifier)
+                            .changeFontWeight(FontWeight.bold);
+                      }
+                    },
+                  ),
                 ),
                 _buildPropertyItem(
                   'letter spacing',
