@@ -4,14 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:make_simple_image_app/application/view_model/main_page_view_model.dart';
 
 class ColorPickerWidget extends ConsumerWidget {
-  const ColorPickerWidget({super.key});
+  final Color pickerColor;
+  final Function onChanged;
+
+  const ColorPickerWidget(this.pickerColor, this.onChanged, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ColorPicker(
-      pickerColor: ref.watch(mainPageViewModelProvider).fontColor,
+      pickerColor: pickerColor,
       onColorChanged: (color) {
-        ref.read(mainPageViewModelProvider.notifier).changeFontColor(color);
+        onChanged(color);
       },
       colorPickerWidth: 100,
     );

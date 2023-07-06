@@ -174,12 +174,25 @@ class _MainPageState extends ConsumerState<MainPage> {
                 ),
                 _buildPropertyItem(
                   'font color',
-                  ColorPickerWidget(),
+                  ColorPickerWidget(
+                    ref.watch(mainPageViewModelProvider).fontColor,
+                    (color) {
+                      ref
+                          .read(mainPageViewModelProvider.notifier)
+                          .changeFontColor(color);
+                    },
+                  ),
                 ),
                 _buildPropertyItem(
                   'background color',
-                  Text('background color'),
-                ),
+                  ColorPickerWidget(
+                    ref.watch(mainPageViewModelProvider).backgroundColor,
+                        (color) {
+                      ref
+                          .read(mainPageViewModelProvider.notifier)
+                          .changeBackgroundColor(color);
+                    },
+                  ),                ),
               ],
             ),
           ),
