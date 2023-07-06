@@ -14,7 +14,7 @@ class MainPageState {
   TextAlign textAlign;
 
   MainPageState({
-    this.text = 'おがわ',
+    this.text = 'テキスト',
     this.fontFamily = 'Roboto',
     this.fontSize = 50,
     this.fontWeight = FontWeight.normal,
