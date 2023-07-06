@@ -85,115 +85,119 @@ class _MainPageState extends ConsumerState<MainPage> {
             thickness: 1,
             indent: 0,
             endIndent: 0,
+            width: 0,
           ),
           Expanded(
-            child: Column(
-              children: [
-                _buildPropertyItem(
-                  'text',
-                  _buildTextField(
-                    _textController,
-                    (text) {
-                      ref
-                          .read(mainPageViewModelProvider.notifier)
-                          .changeText(text);
-                    },
-                  ),
-                ),
-                _buildPropertyItem(
-                  'font family',
-                  _buildDropdownList(
-                    ref.watch(mainPageViewModelProvider).fontFamily,
-                    ref.read(mainPageViewModelProvider.notifier).fontFamilyList,
-                    (value) {
-                      if (value == null) {
-                        return;
-                      }
-                      ref
-                          .read(mainPageViewModelProvider.notifier)
-                          .changeFontFamily(value);
-                    },
-                  ),
-                ),
-                _buildPropertyItem(
-                  'font size',
-                  _buildTextField(_fontSizeController, (text) {
-                    ref
-                        .read(mainPageViewModelProvider.notifier)
-                        .changeFontSize(double.tryParse(text) ?? 0);
-                  }),
-                ),
-                _buildPropertyItem(
-                  'font weight',
-                  Switch(
-                    value: ref.watch(mainPageViewModelProvider).fontWeight !=
-                        FontWeight.normal,
-                    onChanged: (value) {
-                      if (!value) {
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  _buildPropertyItem(
+                    'text',
+                    _buildTextField(
+                      _textController,
+                      (text) {
                         ref
                             .read(mainPageViewModelProvider.notifier)
-                            .changeFontWeight(FontWeight.normal);
-                      } else {
+                            .changeText(text);
+                      },
+                    ),
+                  ),
+                  _buildPropertyItem(
+                    'font family',
+                    _buildDropdownList(
+                      ref.watch(mainPageViewModelProvider).fontFamily,
+                      ref.read(mainPageViewModelProvider.notifier).fontFamilyList,
+                      (value) {
+                        if (value == null) {
+                          return;
+                        }
                         ref
                             .read(mainPageViewModelProvider.notifier)
-                            .changeFontWeight(FontWeight.bold);
-                      }
-                    },
+                            .changeFontFamily(value);
+                      },
+                    ),
                   ),
-                ),
-                _buildPropertyItem(
-                  'letter spacing',
-                  _buildTextField(_letterSpacingController, (text) {
-                    ref
-                        .read(mainPageViewModelProvider.notifier)
-                        .changeLetterSpacing(double.tryParse(text) ?? 0);
-                  }),
-                ),
-                _buildPropertyItem(
-                  'word spacing',
-                  _buildTextField(_wordSpacingController, (text) {
-                    ref
-                        .read(mainPageViewModelProvider.notifier)
-                        .changeWordSpacing(double.tryParse(text) ?? 0);
-                  }),
-                ),
-                _buildPropertyItem(
-                  'text align',
-                  _buildDropdownList(
-                    ref.watch(mainPageViewModelProvider).textAlign,
-                    ref.watch(mainPageViewModelProvider.notifier).textAlignList,
-                    (value) {
-                      if (value == null) {
-                        return;
-                      }
+                  _buildPropertyItem(
+                    'font size',
+                    _buildTextField(_fontSizeController, (text) {
                       ref
                           .read(mainPageViewModelProvider.notifier)
-                          .changeTextAlign(value);
-                    },
+                          .changeFontSize(double.tryParse(text) ?? 0);
+                    }),
                   ),
-                ),
-                _buildPropertyItem(
-                  'font color',
-                  ColorPickerWidget(
-                    ref.watch(mainPageViewModelProvider).fontColor,
-                    (color) {
+                  _buildPropertyItem(
+                    'font weight',
+                    Switch(
+                      value: ref.watch(mainPageViewModelProvider).fontWeight !=
+                          FontWeight.normal,
+                      onChanged: (value) {
+                        if (!value) {
+                          ref
+                              .read(mainPageViewModelProvider.notifier)
+                              .changeFontWeight(FontWeight.normal);
+                        } else {
+                          ref
+                              .read(mainPageViewModelProvider.notifier)
+                              .changeFontWeight(FontWeight.bold);
+                        }
+                      },
+                    ),
+                  ),
+                  _buildPropertyItem(
+                    'letter spacing',
+                    _buildTextField(_letterSpacingController, (text) {
                       ref
                           .read(mainPageViewModelProvider.notifier)
-                          .changeFontColor(color);
-                    },
+                          .changeLetterSpacing(double.tryParse(text) ?? 0);
+                    }),
                   ),
-                ),
-                _buildPropertyItem(
-                  'background color',
-                  ColorPickerWidget(
-                    ref.watch(mainPageViewModelProvider).backgroundColor,
-                        (color) {
+                  _buildPropertyItem(
+                    'word spacing',
+                    _buildTextField(_wordSpacingController, (text) {
                       ref
                           .read(mainPageViewModelProvider.notifier)
-                          .changeBackgroundColor(color);
-                    },
-                  ),                ),
-              ],
+                          .changeWordSpacing(double.tryParse(text) ?? 0);
+                    }),
+                  ),
+                  _buildPropertyItem(
+                    'text align',
+                    _buildDropdownList(
+                      ref.watch(mainPageViewModelProvider).textAlign,
+                      ref.watch(mainPageViewModelProvider.notifier).textAlignList,
+                      (value) {
+                        if (value == null) {
+                          return;
+                        }
+                        ref
+                            .read(mainPageViewModelProvider.notifier)
+                            .changeTextAlign(value);
+                      },
+                    ),
+                  ),
+                  _buildPropertyItem(
+                    'font color',
+                    ColorPickerWidget(
+                      ref.watch(mainPageViewModelProvider).fontColor,
+                      (color) {
+                        ref
+                            .read(mainPageViewModelProvider.notifier)
+                            .changeFontColor(color);
+                      },
+                    ),
+                  ),
+                  _buildPropertyItem(
+                    'background color',
+                    ColorPickerWidget(
+                      ref.watch(mainPageViewModelProvider).backgroundColor,
+                          (color) {
+                        ref
+                            .read(mainPageViewModelProvider.notifier)
+                            .changeBackgroundColor(color);
+                      },
+                    ),                ),
+                ],
+              ),
             ),
           ),
         ],
