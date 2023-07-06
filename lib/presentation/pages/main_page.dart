@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:make_simple_image_app/application/view_model/main_page_view_model.dart';
 import 'package:make_simple_image_app/presentation/pages/settings_page.dart';
 
+import '../widgets/color_picker_widget.dart';
+
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
 
@@ -172,7 +174,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 ),
                 _buildPropertyItem(
                   'font color',
-                  Text('font color'),
+                  ColorPickerWidget(),
                 ),
                 _buildPropertyItem(
                   'background color',
