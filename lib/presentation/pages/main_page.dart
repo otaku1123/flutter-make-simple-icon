@@ -99,8 +99,19 @@ class _MainPageState extends ConsumerState<MainPage> {
                   ),
                 ),
                 _buildPropertyItem(
-                  'font',
-                  Text('font'), // ドロップダウンリストがいいかもしれない
+                  'font family',
+                  _buildDropdownList(
+                    ref.watch(mainPageViewModelProvider).fontFamily,
+                    ref.read(mainPageViewModelProvider.notifier).fontFamilyList,
+                    (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      ref
+                          .read(mainPageViewModelProvider.notifier)
+                          .changeFontFamily(value);
+                    },
+                  ),
                 ),
                 _buildPropertyItem(
                   'font size',
@@ -132,7 +143,18 @@ class _MainPageState extends ConsumerState<MainPage> {
                 ),
                 _buildPropertyItem(
                   'text align',
-                  Text('text align'),
+                  _buildDropdownList(
+                    ref.watch(mainPageViewModelProvider).textAlign,
+                    ref.watch(mainPageViewModelProvider.notifier).textAlignList,
+                    (value) {
+                      if (value == null) {
+                        return;
+                      }
+                      ref
+                          .read(mainPageViewModelProvider.notifier)
+                          .changeTextAlign(value);
+                    },
+                  ),
                 ),
                 _buildPropertyItem(
                   'font color',
@@ -177,10 +199,32 @@ class _MainPageState extends ConsumerState<MainPage> {
     );
   }
 
+  DropdownButton _buildDropdownList(
+      dynamic value, List<DropdownListItem> list, Function onChanged) {
+    return DropdownButton(
+      value: value,
+      items: list.map((DropdownListItem item) {
+        return DropdownMenuItem(
+          value: item.value,
+          child: Text(item.name),
+        );
+      }).toList(),
+      onChanged: (value) {
+        if (value != null) {
+          onChanged(value);
+        }
+      },
+    );
+  }
+
   Widget _buildImage() {
     return Container(
+      width: double.infinity,
+      height: double.infinity,
       color: ref.watch(mainPageViewModelProvider).backgroundColor,
-      child: Center(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: double.infinity,
         child: Text(
           ref.watch(mainPageViewModelProvider).text,
           style: TextStyle(

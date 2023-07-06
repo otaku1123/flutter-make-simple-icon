@@ -8,11 +8,28 @@ final mainPageViewModelProvider =
   (ref) => MainPageViewModel(ref),
 );
 
+class DropdownListItem {
+  dynamic value;
+  final String name;
+  DropdownListItem(this.value, this.name);
+}
+
 class MainPageViewModel extends StateNotifier<MainPageState> {
 
   MainPageViewModel(this._ref) : super(MainPageState());
 
   final Ref _ref;
+
+  get textAlignList => [
+    DropdownListItem(TextAlign.left, 'left'),
+    DropdownListItem(TextAlign.center, 'center'),
+    DropdownListItem(TextAlign.right, 'right'),
+    DropdownListItem(TextAlign.justify, 'justify'),
+  ];
+
+  get fontFamilyList => [
+    DropdownListItem('Roboto', 'Roboto'),
+  ];
 
   // MainPageから参照する変数
   get text => _ref.watch(mainPageViewModelProvider).text;
@@ -21,8 +38,8 @@ class MainPageViewModel extends StateNotifier<MainPageState> {
     state = state.copyWith(text: text);
   }
 
-  void changeFont(String font) {
-    state = state.copyWith(font: font);
+  void changeFontFamily(String fontFamily) {
+    state = state.copyWith(fontFamily: fontFamily);
   }
 
   void changeFontSize(double fontSize) {

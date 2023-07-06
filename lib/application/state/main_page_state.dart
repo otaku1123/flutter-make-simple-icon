@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MainPageState {
   String text;
-  String font;
+  String fontFamily;
   double fontSize;
   FontWeight fontWeight;
   Color fontColor;
@@ -15,7 +15,7 @@ class MainPageState {
 
   MainPageState({
     this.text = 'おがわ',
-    this.font = 'Roboto',
+    this.fontFamily = 'Roboto',
     this.fontSize = 50,
     this.fontWeight = FontWeight.normal,
     this.fontColor = Colors.black,
@@ -27,7 +27,7 @@ class MainPageState {
 
   MainPageState copyWith({
     String? text,
-    String? font,
+    String? fontFamily,
     double? fontSize,
     FontWeight? fontWeight,
     Color? fontColor,
@@ -38,7 +38,7 @@ class MainPageState {
   }) {
     return MainPageState(
       text: text ?? this.text,
-      font: font ?? this.font,
+      fontFamily: fontFamily ?? this.fontFamily,
       fontSize: fontSize ?? this.fontSize,
       fontWeight: fontWeight ?? this.fontWeight,
       fontColor: fontColor ?? this.fontColor,
